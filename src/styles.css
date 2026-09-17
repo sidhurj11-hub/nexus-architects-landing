@@ -20,7 +20,7 @@
 
 @theme inline {
   --font-sans: "Inter", sans-serif;
-  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -72,19 +72,19 @@
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.115 0.025 264);
+  --background: oklch(0.145 0 0);
   --foreground: oklch(0.96 0.012 250);
-  --card: oklch(0.17 0.035 258 / 72%);
+  --card: oklch(0.18 0.012 264 / 72%);
   --card-foreground: oklch(0.96 0.012 250);
-  --popover: oklch(0.16 0.032 258);
+  --popover: oklch(0.17 0.01 264);
   --popover-foreground: oklch(0.96 0.012 250);
   --primary: oklch(0.75 0.14 226);
   --primary-foreground: oklch(0.12 0.026 264);
   --secondary: oklch(0.23 0.045 279);
   --secondary-foreground: oklch(0.93 0.02 260);
-  --muted: oklch(0.2 0.026 258);
+  --muted: oklch(0.2 0.012 258);
   --muted-foreground: oklch(0.7 0.028 254);
-  --accent: oklch(0.24 0.055 259);
+  --accent: oklch(0.24 0.025 259);
   --accent-foreground: oklch(0.96 0.012 250);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
@@ -92,8 +92,8 @@
   --border-strong: oklch(1 0 0 / 18%);
   --input: oklch(1 0 0 / 14%);
   --ring: oklch(0.75 0.14 226);
-  --glass: oklch(0.18 0.04 258 / 60%);
-  --obsidian-soft: oklch(0.15 0.03 262);
+  --glass: oklch(0.18 0.015 258 / 62%);
+  --obsidian-soft: oklch(0.165 0.008 262);
   --cyan: oklch(0.75 0.14 226);
   --violet: oklch(0.65 0.22 305);
   --emerald: oklch(0.7 0.16 166);
@@ -174,7 +174,35 @@
 
 @utility section-grid {
   background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 72px 72px;
+  background-size: 64px 64px;
+}
+
+@utility drafting-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px),
+    linear-gradient(color-mix(in oklab, var(--foreground) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--foreground) 4%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px;
+}
+
+@utility technical-frame {
+  position: relative;
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0 0 8px color-mix(in oklab, var(--background) 72%, transparent);
+}
+
+@utility outline-type {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--foreground) 34%, transparent);
+}
+
+@utility edge-glow {
+  box-shadow: inset 0 1px color-mix(in oklab, var(--foreground) 8%, transparent), 0 24px 80px color-mix(in oklab, var(--background) 70%, transparent);
+}
+
+@utility detail-noise {
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, color-mix(in oklab, var(--foreground) 2%, transparent) 4px);
 }
 
 @utility text-gradient {

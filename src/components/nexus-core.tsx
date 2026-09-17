@@ -1,14 +1,17 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useReducedMotion } from "framer-motion";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
 function NeuralCore() {
   const group = useRef<THREE.Group>(null);
+  const reducedMotion = useReducedMotion();
+  const { size } = useThree();
   const points = useMemo(() => {
     const positions: number[] = [];
-    const count = 130;
+    const count = size.width < 768 ? 64 : 130;
     for (let index = 0; index < count; index += 1) {
       const phi = Math.acos(1 - (2 * (index + 0.5)) / count);
       const theta = Math.PI * (1 + Math.sqrt(5)) * index;
@@ -20,10 +23,11 @@ function NeuralCore() {
       );
     }
     return new Float32Array(positions);
-  }, []);
+  }, [size.width]);
 
   useFrame((state, delta) => {
     if (!group.current) return;
+    if (reducedMotion) return;
     group.current.rotation.y += delta * 0.12;
     group.current.rotation.x += delta * 0.025;
     group.current.rotation.y += (state.pointer.x * 0.28 - group.current.rotation.y) * 0.018;

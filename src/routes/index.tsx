@@ -1,6 +1,6 @@
 import { createFileRoute, ClientOnly } from "@tanstack/react-router";
 import { lazy, Suspense, useMemo, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Award,
@@ -199,17 +199,17 @@ function Hero({ onApply }: { onApply: () => void }) {
           </motion.div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="relative min-h-[420px] lg:min-h-[640px]">
+        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="pointer-events-none absolute -right-36 top-10 h-[430px] w-[430px] opacity-40 sm:-right-20 sm:h-[540px] sm:w-[540px] lg:pointer-events-auto lg:relative lg:right-auto lg:top-auto lg:h-auto lg:w-auto lg:min-h-[640px] lg:opacity-100">
           <div className="absolute inset-0 rounded-full bg-violet/10 blur-[100px]" />
           <div className="absolute inset-0">
             <ClientOnly fallback={<CoreFallback />}>
               <Suspense fallback={<CoreFallback />}><NexusCore /></Suspense>
             </ClientOnly>
           </div>
-          <div className="glass-panel absolute right-1 top-10 rounded-md px-4 py-3 font-mono text-[10px] text-muted-foreground sm:right-8 sm:top-20">
+          <div className="glass-panel absolute right-1 top-10 hidden rounded-md px-4 py-3 font-mono text-[10px] text-muted-foreground sm:right-8 sm:top-20 lg:block">
             <span className="text-emerald">● ONLINE</span><br />node_map: 01A7
           </div>
-          <div className="glass-panel absolute bottom-7 left-0 max-w-[220px] rounded-md p-4 sm:left-8 sm:bottom-16">
+          <div className="glass-panel absolute bottom-7 left-0 hidden max-w-[220px] rounded-md p-4 sm:left-8 sm:bottom-16 lg:block">
             <p className="font-mono text-[10px] text-primary">LIVE SYSTEM</p>
             <p className="mt-2 text-sm font-medium">Cursor-reactive neural mesh</p>
             <p className="mt-1 text-xs text-muted-foreground">Drag your attention through the architecture.</p>

@@ -4,22 +4,16 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
   Award,
-  BriefcaseBusiness,
   Check,
   ChevronRight,
   CircleDot,
-  Code2,
   Github,
   Linkedin,
   Menu,
   Network,
   Play,
   Send,
-  Sparkles,
-  Terminal,
-  Users,
   X,
-  Zap,
 } from "lucide-react";
 
 import arjun from "@/assets/mentor-arjun.jpg";
@@ -329,7 +323,7 @@ function SectionHeader({ number, eyebrow, title, body }: { number: string; eyebr
 function Curriculum() {
   const [track, setTrack] = useState<TrackKey>("fullstack");
   const [pace, setPace] = useState([0]);
-  const executive = pace[0] > 50;
+  const executive = (pace[0] ?? 0) > 50;
   return (
     <section id="curriculum" className="relative overflow-hidden border-b border-border bg-obsidian-soft px-5 py-24 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
@@ -413,7 +407,7 @@ function Tuition({ onApply }: { onApply: () => void }) {
     isa: { label: "Income Share", price: "$0 today", note: "Pay after you land a qualifying role" },
     corporate: { label: "Corporate", price: "Sponsored", note: "Employer-funded team upskilling" },
   };
-  const active = plans[plan as keyof typeof plans];
+  const active = plans[plan as keyof typeof plans] ?? plans.upfront;
   return (
     <section id="tuition" className="relative overflow-hidden px-5 py-24 lg:px-8 lg:py-32">
       <div className="absolute inset-0 section-grid opacity-20" />
@@ -433,7 +427,7 @@ function Tuition({ onApply }: { onApply: () => void }) {
 function ApplicationDialog({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) {
   const [step, setStep] = useState(1);
   const [salary, setSalary] = useState([85000]);
-  const scholarship = useMemo(() => Math.max(0, Math.round((120000 - salary[0]) / 20) * 100), [salary]);
+  const scholarship = useMemo(() => Math.max(0, Math.round((120000 - (salary[0] ?? 85000)) / 20) * 100), [salary]);
   const close = (next: boolean) => { setOpen(next); if (!next) window.setTimeout(() => setStep(1), 250); };
   return (
     <Dialog open={open} onOpenChange={close}>
@@ -441,7 +435,7 @@ function ApplicationDialog({ open, setOpen }: { open: boolean; setOpen: (open: b
         <DialogHeader><p className="font-mono text-[10px] uppercase text-primary">Application / Step {step} of 3</p><DialogTitle className="font-display text-2xl">{step === 1 ? "Choose your direction." : step === 2 ? "Tell us where you are." : "Your application is ready."}</DialogTitle><DialogDescription>{step < 3 ? "Around four minutes. No generic cover letter required." : "We’ll review your fit and follow up with next steps."}</DialogDescription></DialogHeader>
         <Progress value={(step / 3) * 100} className="my-4 h-1 bg-muted" />
         {step === 1 && <div className="space-y-3">{Object.entries(trackData).map(([key, track]) => <label key={key} className="flex cursor-pointer items-center gap-4 border border-border bg-background/50 p-4 transition hover:border-primary/40"><input type="radio" name="application-track" defaultChecked={key === "fullstack"} className="accent-primary" /><span><b className="block text-sm">{track.title}</b><span className="text-xs text-muted-foreground">{track.eyebrow}</span></span></label>)}</div>}
-        {step === 2 && <div className="space-y-5"><div><Label htmlFor="name">Full name</Label><Input id="name" className="mt-2 h-11 bg-background/60" placeholder="Your name" /></div><div><Label htmlFor="email">Work email</Label><Input id="email" type="email" className="mt-2 h-11 bg-background/60" placeholder="you@company.com" /></div><div className="border border-border bg-background/50 p-4"><div className="flex justify-between text-xs"><span>Current annual income</span><span className="font-mono">${salary[0].toLocaleString()}</span></div><Slider value={salary} onValueChange={setSalary} min={30000} max={180000} step={5000} className="my-5" /><p className="text-xs text-muted-foreground">Estimated scholarship eligibility: <span className="text-emerald">up to ${scholarship.toLocaleString()}</span></p></div></div>}
+        {step === 2 && <div className="space-y-5"><div><Label htmlFor="name">Full name</Label><Input id="name" className="mt-2 h-11 bg-background/60" placeholder="Your name" /></div><div><Label htmlFor="email">Work email</Label><Input id="email" type="email" className="mt-2 h-11 bg-background/60" placeholder="you@company.com" /></div><div className="border border-border bg-background/50 p-4"><div className="flex justify-between text-xs"><span>Current annual income</span><span className="font-mono">${(salary[0] ?? 85000).toLocaleString()}</span></div><Slider value={salary} onValueChange={setSalary} min={30000} max={180000} step={5000} className="my-5" /><p className="text-xs text-muted-foreground">Estimated scholarship eligibility: <span className="text-emerald">up to ${scholarship.toLocaleString()}</span></p></div></div>}
         {step === 3 && <div className="grid min-h-56 place-items-center text-center"><div><div className="mx-auto grid size-16 place-items-center rounded-full border border-emerald/40 bg-emerald/10"><Check className="size-7 text-emerald" /></div><p className="mt-5 font-display text-xl font-semibold">Application staged.</p><p className="mt-2 text-sm text-muted-foreground">This preview doesn’t transmit personal details. Your experience is ready for a secure application service.</p></div></div>}
         <div className="mt-3 flex justify-between gap-3"><Button variant="ghost" onClick={() => step === 1 ? close(false) : setStep(step - 1)}>{step === 1 ? "Cancel" : "Back"}</Button>{step < 3 ? <Button variant="hero" onClick={() => setStep(step + 1)}>Continue <ArrowRight /></Button> : <Button variant="hero" onClick={() => close(false)}>Done</Button>}</div>
       </DialogContent>

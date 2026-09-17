@@ -60,6 +60,7 @@ export default function NexusCore() {
       camera={{ position: [0, 0, 4.6], fov: 48 }}
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      fallback={<div className="grid h-full place-items-center"><span className="size-40 rounded-full border border-primary/30" /></div>}
       aria-label="Interactive neural network core"
     >
       <NeuralCore />

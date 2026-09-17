@@ -27,7 +27,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -388,13 +387,15 @@ function Mentorship() {
 }
 
 function MentorCard({ mentor }: { mentor: (typeof mentors)[number] }) {
+  const [proof, setProof] = useState<"linkedin" | "github" | null>(null);
   return (
     <motion.article whileHover={{ y: -8, rotateX: 2, rotateY: -2 }} transition={{ type: "spring", stiffness: 240, damping: 20 }} className="group relative overflow-hidden border border-border bg-card [transform-style:preserve-3d]">
       <img src={mentor.image} alt={`${mentor.name}, ${mentor.track} mentor`} loading="lazy" width={768} height={960} className="aspect-[4/5] w-full object-cover grayscale-[25%] transition duration-500 group-hover:grayscale-0" />
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent p-6 pt-24">
         <p className={cn("font-mono text-[9px] uppercase", mentor.accent === "cyan" ? "text-primary" : mentor.accent === "violet" ? "text-violet" : "text-emerald")}>{mentor.track}</p>
         <h3 className="mt-2 font-display text-xl font-semibold">{mentor.name}</h3><p className="mt-1 text-xs text-muted-foreground">{mentor.role}</p>
-        <div className="mt-4 flex gap-2 opacity-70 transition-opacity group-hover:opacity-100"><Button variant="glass" size="icon" aria-label={`${mentor.name} on LinkedIn`}><Linkedin /></Button><Button variant="glass" size="icon" aria-label={`${mentor.name} on GitHub`}><Github /></Button></div>
+        {proof && <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-4 border-l border-primary pl-3 text-[11px] leading-5 text-muted-foreground">{proof === "linkedin" ? `Verified leadership profile · ${mentor.role}` : `Selected systems reviews · ${mentor.track}`}<span className="block font-mono text-[9px] text-primary">ILLUSTRATIVE PROFILE</span></motion.div>}
+        <div className="mt-4 flex gap-2 opacity-70 transition-opacity group-hover:opacity-100"><Button variant="glass" size="icon" aria-label={`Show ${mentor.name} LinkedIn proof`} onClick={() => setProof(proof === "linkedin" ? null : "linkedin")}><Linkedin /></Button><Button variant="glass" size="icon" aria-label={`Show ${mentor.name} GitHub proof`} onClick={() => setProof(proof === "github" ? null : "github")}><Github /></Button></div>
       </div>
     </motion.article>
   );

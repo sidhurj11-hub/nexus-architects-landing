@@ -138,11 +138,31 @@ function BrandMark() {
   );
 }
 
+function CornerMarks() {
+  return (
+    <div className="pointer-events-none absolute inset-3 z-20" aria-hidden="true">
+      <span className="absolute left-0 top-0 size-4 border-l border-t border-foreground/25" />
+      <span className="absolute right-0 top-0 size-4 border-r border-t border-foreground/25" />
+      <span className="absolute bottom-0 left-0 size-4 border-b border-l border-foreground/25" />
+      <span className="absolute bottom-0 right-0 size-4 border-b border-r border-foreground/25" />
+    </div>
+  );
+}
+
+function DetailRail({ code, label }: { code: string; label: string }) {
+  return (
+    <div className="mb-8 flex items-center gap-4 border-b border-border pb-3 font-mono text-[9px] uppercase text-muted-foreground">
+      <span className="text-primary">{code}</span><span>{label}</span><span className="h-px flex-1 bg-border" />
+      <span className="hidden sm:inline">NXS / SYSTEMS EDUCATION</span>
+    </div>
+  );
+}
+
 function SiteHeader({ onApply }: { onApply: () => void }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/75 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between border-x border-border px-5 lg:px-8">
         <a href="#top" className="flex items-center gap-3" aria-label="NEXUS ARCHITECTS home">
           <BrandMark />
           <span className="font-display text-sm font-semibold tracking-normal">NEXUS <span className="text-muted-foreground">/ ARCHITECTS</span></span>
@@ -172,18 +192,23 @@ function SiteHeader({ onApply }: { onApply: () => void }) {
 function Hero({ onApply }: { onApply: () => void }) {
   return (
     <section id="top" className="relative min-h-[920px] overflow-hidden border-b border-border pt-16 lg:min-h-[820px]">
-      <div className="section-grid absolute inset-0 opacity-25 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]" />
-      <div className="absolute left-1/2 top-20 h-[520px] w-[720px] -translate-x-1/2 rounded-full bg-primary/10 blur-[140px]" />
-      <div className="relative mx-auto grid max-w-7xl gap-8 px-5 pb-16 pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pt-24">
+      <div className="drafting-grid absolute inset-0 opacity-30 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]" />
+      <div className="detail-noise absolute inset-0 opacity-40" />
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between border-x border-b border-border px-5 py-2 font-mono text-[9px] uppercase text-muted-foreground lg:px-8">
+        <span>Program architecture / 2026</span><span>37.7749° N · 122.4194° W</span>
+      </div>
+      <div className="relative mx-auto grid max-w-7xl gap-8 border-x border-border px-5 pb-16 pt-12 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pt-20">
+        <CornerMarks />
         <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }} className="relative z-10 flex flex-col justify-center">
           <motion.div variants={rise} className="mb-7 flex items-center gap-3 font-mono text-[11px] uppercase text-primary">
             <span className="relative flex size-2"><span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald opacity-60" /><span className="relative size-2 rounded-full bg-emerald" /></span>
             Admissions open · January cohort
           </motion.div>
           <motion.p variants={rise} className="text-gradient mb-5 font-display text-sm font-semibold sm:text-base">Engineered for the Top 1% of Developers.</motion.p>
-          <motion.h1 variants={rise} className="max-w-4xl font-display text-[clamp(2.6rem,6vw,5.4rem)] font-semibold leading-[1.02] tracking-normal">
+          <motion.h1 variants={rise} className="max-w-4xl font-display text-[clamp(2.6rem,6vw,5.4rem)] font-bold leading-[0.98] tracking-normal">
             Master Full Stack, AI, and Data Science with <span className="text-muted-foreground">Active Industry Leads.</span>
           </motion.h1>
+          <motion.div variants={rise} aria-hidden="true" className="outline-type mt-3 select-none font-display text-[clamp(2.5rem,7vw,6.5rem)] font-bold leading-none opacity-50">NEXUS / 01</motion.div>
           <motion.p variants={rise} className="mt-7 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
             An intensive, mentor-led engineering institute for builders who refuse to learn from yesterday’s playbook.
           </motion.p>
@@ -198,17 +223,18 @@ function Hero({ onApply }: { onApply: () => void }) {
           </motion.div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="pointer-events-none absolute -right-44 top-14 h-[430px] w-[430px] opacity-20 sm:-right-24 sm:h-[540px] sm:w-[540px] sm:opacity-30 lg:pointer-events-auto lg:relative lg:right-auto lg:top-auto lg:h-auto lg:w-auto lg:min-h-[640px] lg:opacity-100">
+        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="technical-frame pointer-events-none absolute -right-44 top-14 h-[430px] w-[430px] opacity-20 sm:-right-24 sm:h-[540px] sm:w-[540px] sm:opacity-30 lg:pointer-events-auto lg:relative lg:right-auto lg:top-auto lg:h-auto lg:w-auto lg:min-h-[640px] lg:opacity-100">
+          <CornerMarks />
           <div className="absolute inset-0 rounded-full bg-violet/10 blur-[100px]" />
           <div className="absolute inset-0">
             <ClientOnly fallback={<CoreFallback />}>
               <Suspense fallback={<CoreFallback />}><NexusCore /></Suspense>
             </ClientOnly>
           </div>
-          <div className="glass-panel absolute right-1 top-10 hidden rounded-md px-4 py-3 font-mono text-[10px] text-muted-foreground sm:right-8 sm:top-20 lg:block">
+          <div className="glass-panel absolute right-1 top-10 hidden px-4 py-3 font-mono text-[10px] text-muted-foreground sm:right-8 sm:top-20 lg:block">
             <span className="text-emerald">● ONLINE</span><br />node_map: 01A7
           </div>
-          <div className="glass-panel absolute bottom-7 left-0 hidden max-w-[220px] rounded-md p-4 sm:left-8 sm:bottom-16 lg:block">
+          <div className="glass-panel absolute bottom-7 left-0 hidden max-w-[220px] p-4 sm:left-8 sm:bottom-16 lg:block">
             <p className="font-mono text-[10px] text-primary">LIVE SYSTEM</p>
             <p className="mt-2 text-sm font-medium">Cursor-reactive neural mesh</p>
             <p className="mt-1 text-xs text-muted-foreground">Drag your attention through the architecture.</p>
@@ -236,7 +262,7 @@ function Stat({ value, label, border = false }: { value: string; label: string; 
 function TechTicker() {
   const tech = ["React", "PYTORCH", "Next.js", "TENSORFLOW", "CUDA", "PostgreSQL"];
   return (
-    <div className="overflow-hidden border-b border-border bg-obsidian-soft py-4">
+    <div className="relative overflow-hidden border-b border-border bg-obsidian-soft py-4 before:absolute before:inset-y-0 before:left-5 before:z-10 before:w-px before:bg-primary/50 after:absolute after:inset-y-0 after:right-5 after:z-10 after:w-px after:bg-primary/50">
       <div className="tech-ticker flex w-max items-center">
         {[...tech, ...tech].map((name, index) => (
           <div key={`${name}-${index}`} className="flex w-48 items-center justify-center gap-3 font-mono text-xs text-muted-foreground"><CircleDot className="size-3 text-primary" />{name}</div>
@@ -277,6 +303,7 @@ function Programs() {
   return (
     <section id="programs" className="border-b border-border px-5 py-24 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
+        <DetailRail code="SEC.01" label="Discipline index" />
         <Reveal><SectionHeader number="01" eyebrow="Choose your discipline" title="Three tracks. One engineering standard." body="Each program pairs deep technical instruction with production constraints and weekly critique from active industry leaders." /></Reveal>
         <Tabs value={active} onValueChange={(value) => setActive(value as TrackKey)} className="mt-14">
           <TabsList className="grid h-auto w-full grid-cols-1 gap-px border border-border bg-border p-0 sm:grid-cols-3">
@@ -290,7 +317,8 @@ function Programs() {
             const track = trackData[key];
             return (
               <TabsContent key={key} value={key} className="mt-px outline-none">
-                <div className="grid min-h-[460px] border border-border lg:grid-cols-2">
+                <div className="technical-frame edge-glow grid min-h-[460px] lg:grid-cols-2">
+                  <CornerMarks />
                   <div className="flex flex-col justify-center p-7 sm:p-12 lg:p-16">
                     <p className={cn("font-mono text-[10px] uppercase", key === "fullstack" ? "text-primary" : key === "ai" ? "text-violet" : "text-emerald")}>{track.eyebrow}</p>
                     <h3 className="mt-4 font-display text-3xl font-semibold sm:text-5xl">{track.title}</h3>
@@ -313,7 +341,7 @@ function SectionHeader({ number, eyebrow, title, body }: { number: string; eyebr
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_1.5fr_1fr] lg:items-end">
       <div className="font-mono text-[10px] uppercase text-primary">{number} / {eyebrow}</div>
-      <h2 className="font-display text-3xl font-semibold leading-tight sm:text-5xl">{title}</h2>
+      <h2 className="font-display text-3xl font-bold leading-tight sm:text-5xl">{title}</h2>
       <p className="text-sm leading-6 text-muted-foreground">{body}</p>
     </div>
   );
@@ -326,9 +354,10 @@ function Curriculum() {
   return (
     <section id="curriculum" className="relative overflow-hidden border-b border-border bg-obsidian-soft px-5 py-24 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
+        <DetailRail code="SEC.02" label="Module sequencing" />
         <Reveal><SectionHeader number="02" eyebrow="Curriculum matrix" title="Designed around hard problems." body="Choose a track and pace. Every module resolves into a portfolio-grade system defended before working engineers." /></Reveal>
         <div className="mt-14 grid gap-8 lg:grid-cols-[280px_1fr]">
-          <aside className="glass-panel h-fit p-5">
+          <aside className="glass-panel technical-frame h-fit p-5">
             <p className="font-mono text-[10px] uppercase text-muted-foreground">Track filter</p>
             <div className="mt-4 flex flex-col gap-2">{(Object.keys(trackData) as TrackKey[]).map((key) => <Button key={key} variant={track === key ? "secondary" : "ghost"} className="justify-start" onClick={() => setTrack(key)}>{track === key && <span className="size-1.5 rounded-full bg-primary" />}{trackData[key].short}</Button>)}</div>
             <div className="mt-8 border-t border-border pt-6">
@@ -366,6 +395,7 @@ function Mentorship() {
   return (
     <section id="mentors" className="border-b border-border px-5 py-24 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
+        <DetailRail code="SEC.03" label="Faculty verification" />
         <Reveal><SectionHeader number="03" eyebrow="Mentorship & sandbox" title="Learn beside the people shipping it." body="Get direct architecture review, live debugging, and career signal from leaders actively building the systems you study." /></Reveal>
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {mentors.map((mentor) => <MentorCard key={mentor.name} mentor={mentor} />)}
@@ -389,7 +419,8 @@ function Mentorship() {
 function MentorCard({ mentor }: { mentor: (typeof mentors)[number] }) {
   const [proof, setProof] = useState<"linkedin" | "github" | null>(null);
   return (
-    <motion.article whileHover={{ y: -8, rotateX: 2, rotateY: -2 }} transition={{ type: "spring", stiffness: 240, damping: 20 }} className="group relative overflow-hidden border border-border bg-card [transform-style:preserve-3d]">
+    <motion.article whileHover={{ y: -8, rotateX: 2, rotateY: -2 }} transition={{ type: "spring", stiffness: 240, damping: 20 }} className="group technical-frame relative overflow-hidden bg-card [transform-style:preserve-3d]">
+      <CornerMarks />
       <img src={mentor.image} alt={`${mentor.name}, ${mentor.track} mentor`} loading="lazy" width={768} height={960} className="aspect-[4/5] w-full object-cover grayscale-[25%] transition duration-500 group-hover:grayscale-0" />
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent p-6 pt-24">
         <p className={cn("font-mono text-[9px] uppercase", mentor.accent === "cyan" ? "text-primary" : mentor.accent === "violet" ? "text-violet" : "text-emerald")}>{mentor.track}</p>
@@ -413,8 +444,10 @@ function Tuition({ onApply }: { onApply: () => void }) {
     <section id="tuition" className="relative overflow-hidden px-5 py-24 lg:px-8 lg:py-32">
       <div className="absolute inset-0 section-grid opacity-20" />
       <div className="relative mx-auto max-w-5xl text-center">
+        <DetailRail code="SEC.04" label="Admissions protocol" />
         <Reveal><p className="font-mono text-[10px] uppercase text-primary">04 / Admissions & tuition</p><h2 className="mx-auto mt-6 max-w-3xl font-display text-4xl font-semibold sm:text-6xl">Invest in the ceiling you intend to break.</h2><p className="mx-auto mt-6 max-w-2xl leading-7 text-muted-foreground">Flexible paths designed around your ambition—not your current cash flow.</p></Reveal>
-        <Reveal className="glass-panel mx-auto mt-12 max-w-3xl p-3 sm:p-6">
+        <Reveal className="glass-panel technical-frame edge-glow mx-auto mt-12 max-w-3xl p-3 sm:p-6">
+          <CornerMarks />
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">{Object.entries(plans).map(([key, value]) => <Button key={key} variant={plan === key ? "secondary" : "ghost"} className="h-12" onClick={() => setPlan(key)}>{value.label}</Button>)}</div>
           <div className="mt-8 border-y border-border py-10"><p className="font-display text-4xl font-semibold sm:text-6xl">{active.price}</p><p className="mt-3 text-sm text-muted-foreground">{active.note}</p></div>
           <div className="grid gap-3 py-7 text-left text-sm text-muted-foreground sm:grid-cols-3">{["Live expert instruction", "Unlimited sandbox access", "Career strategy & referrals"].map((item) => <span key={item} className="flex items-center gap-2"><Check className="size-4 text-emerald" />{item}</span>)}</div>

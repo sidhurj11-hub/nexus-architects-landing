@@ -198,7 +198,7 @@ function Hero({ onApply }: { onApply: () => void }) {
           </motion.div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="pointer-events-none absolute -right-36 top-10 h-[430px] w-[430px] opacity-40 sm:-right-20 sm:h-[540px] sm:w-[540px] lg:pointer-events-auto lg:relative lg:right-auto lg:top-auto lg:h-auto lg:w-auto lg:min-h-[640px] lg:opacity-100">
+        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="pointer-events-none absolute -right-44 top-14 h-[430px] w-[430px] opacity-20 sm:-right-24 sm:h-[540px] sm:w-[540px] sm:opacity-30 lg:pointer-events-auto lg:relative lg:right-auto lg:top-auto lg:h-auto lg:w-auto lg:min-h-[640px] lg:opacity-100">
           <div className="absolute inset-0 rounded-full bg-violet/10 blur-[100px]" />
           <div className="absolute inset-0">
             <ClientOnly fallback={<CoreFallback />}>

@@ -60,7 +60,7 @@ export default function NexusCore() {
       camera={{ position: [0, 0, 4.6], fov: 48 }}
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-      fallback={<div className="grid h-full place-items-center"><span className="size-40 rounded-full border border-primary/30" /></div>}
+      fallback={<div className="relative grid h-full place-items-center"><span className="absolute size-52 rounded-full border border-primary/30 shadow-[0_0_70px_color-mix(in_oklab,var(--cyan)_16%,transparent)]" /><span className="size-32 rotate-45 border border-violet/40" /></div>}
       aria-label="Interactive neural network core"
     >
       <NeuralCore />
